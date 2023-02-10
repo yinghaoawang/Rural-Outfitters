@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-noto-sans-syloti-nagri;
+
+  & .outer-container {
+    @apply mx-5 mt-3;
+  }
+}
