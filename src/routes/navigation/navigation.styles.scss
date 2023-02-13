@@ -3,7 +3,11 @@
     flex justify-between;
 
     .logo-container {
-        @apply h-full w-16 p-6
+        @apply h-full w-16 p-3 ml-3;
+
+        .logo {
+            @apply h-full w-full;
+        }
     }
 
   .nav-links-container {
