@@ -1,0 +1,18 @@
+.navigation {
+    @apply h-16 w-full
+    flex justify-between;
+
+    .logo-container {
+        @apply h-full w-16 p-6
+    }
+
+  .nav-links-container {
+    @apply w-1/2 h-full
+    flex items-center justify-end;
+
+    .nav-link {
+        @apply px-6;
+      cursor: pointer;
+    }
+  }
+}
