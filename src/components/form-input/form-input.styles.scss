@@ -1,0 +1,12 @@
+.group {
+    @apply my-2;
+
+    .form-input-label {
+        @apply mr-1;
+    }
+
+    .form-input {
+        @apply border border-gray-500
+        p-1 w-full;
+    }
+}

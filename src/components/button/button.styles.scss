@@ -1,0 +1,11 @@
+.button-container {
+    @apply border border-gray-500 px-2 py-1 w-60;
+    
+    &.google-sign-in {
+        @apply bg-blue-500;
+    }
+
+    &.inverted {
+        @apply bg-neutral-900 text-neutral-100;
+    }
+}
