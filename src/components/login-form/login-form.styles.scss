@@ -1,5 +1,9 @@
-.buttons-container {
-    button:first-child {
-        @apply mr-2;
+.login-container {
+    @apply flex flex-col w-[360px];
+    .buttons-container {
+        @apply flex justify-center gap-2;
+        button {
+            @apply w-full;
+        }
     }
 }

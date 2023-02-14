@@ -56,15 +56,15 @@ const LoginForm = () => {
     }
 
     return (
-        <div>
+        <div className='login-container'>
             <h1>Login</h1>
             <form onSubmit={ handleSubmit }>
                 <FormInput label='Email' type='email' required onChange={ handleChange } name='email' value={ email } />
                 <FormInput label='Password' type='password' required onChange={ handleChange } name='password' value={ password } />
 
                 <div className='buttons-container'>
-                    <Button type='submit' buttonType='inverted'>Sign in</Button>
-                    <Button buttonType='google' onClick={ signInWithGoogle }>Sign in With Google</Button>
+                    <Button type='submit' buttonType='inverted'>Sign In</Button>
+                    <Button buttonType='google' onClick={ signInWithGoogle }>Google Sign In</Button>
                 </div>
             </form>
         </div>

@@ -1,3 +1,4 @@
+import './sign-up-form.styles.scss';
 import { useState } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
@@ -52,14 +53,14 @@ const SignUpForm = () => {
     }
 
     return (
-        <div>
+        <div className='sign-up-container'>
             <form onSubmit={handleSubmit}>
                 <h1>Sign Up</h1>
                 <FormInput label='Display Name' type='text' required onChange={ handleChange } name='displayName' value={ displayName }/>
                 <FormInput label='Email' type='email' required onChange={ handleChange } name='email' value={ email } />
                 <FormInput label='Password' type='password' required onChange={ handleChange } name='password' value={ password } />
                 <FormInput label='Confirm Password' type='password' required onChange={ handleChange } name='confirmPassword' value={ confirmPassword } />
-                <Button buttonType='inverted' type='submit'>Sign up</Button>
+                <Button buttonType='inverted' type='submit'>Sign Up</Button>
             </form>
         </div>
     );
