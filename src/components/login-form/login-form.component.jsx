@@ -1,9 +1,13 @@
 import './login-form.styles.scss';
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from '../../contexts/user.context';
 
-import { signInWithGooglePopup,
+import {
+    signInWithGooglePopup,
     signInAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth } from '../../util/firebase.util';
+    createUserDocumentFromAuth
+} from '../../utils/firebase.util';
+
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
@@ -16,6 +20,8 @@ const LoginForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
+    const { setCurrentUser } = useContext(UserContext);
+
     const resetFormFields = () => {
         setFormFields({ ...formFields, password: '' });
     }
@@ -24,7 +30,8 @@ const LoginForm = () => {
         const { user } = await signInWithGooglePopup();
         console.log(user);
         const userDocRef = await createUserDocumentFromAuth(user);
-        console.log(userDocRef);
+        setCurrentUser(user);
+        alert('Login successful');
     }
 
     const handleChange = (event) => {
@@ -37,6 +44,7 @@ const LoginForm = () => {
         try {
             const response = await signInAuthUserWithEmailAndPassword(email, password);
             const { user } = response;
+            setCurrentUser(user);
             alert('Login successful');
         } catch (error) {
             const { code } = error;
@@ -58,13 +66,13 @@ const LoginForm = () => {
     return (
         <div className='login-container'>
             <h1>Login</h1>
-            <form onSubmit={ handleSubmit }>
+            <form onSubmit={ (e) => {console.log('hey'); handleSubmit(e); } }>
                 <FormInput label='Email' type='email' required onChange={ handleChange } name='email' value={ email } />
                 <FormInput label='Password' type='password' required onChange={ handleChange } name='password' value={ password } />
 
                 <div className='buttons-container'>
                     <Button type='submit' buttonType='inverted'>Sign In</Button>
-                    <Button buttonType='google' onClick={ signInWithGoogle }>Google Sign In</Button>
+                    <Button buttonType='google' onClick={ (e) => { e.preventDefault(); signInWithGoogle(); } }>Google Sign In</Button>
                 </div>
             </form>
         </div>
