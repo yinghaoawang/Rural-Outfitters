@@ -7,10 +7,9 @@ import { UserContext } from '../../contexts/user.context';
 import { signOutAuthUser } from '../../utils/firebase.util';
 
 const Navigation = () => {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
     const signOutHandler = async () => {
         await signOutAuthUser();
-        setCurrentUser(null);
     }
     return (
         <>
@@ -30,7 +29,7 @@ const Navigation = () => {
             </div>
             <Outlet />
         </>
-    )
+    );
 };
 
 export default Navigation;
