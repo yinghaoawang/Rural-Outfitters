@@ -1,0 +1,38 @@
+.product-card-container {
+    @apply w-full h-[350px]
+    flex flex-col items-center
+    relative;
+  
+    img {
+        @apply w-full h-[95%] object-cover mb-1;
+    }
+  
+    button {
+        @apply w-[80%] opacity-70 absolute top-[265px] hidden;
+    }
+  
+    &:hover {
+      img {
+        @apply opacity-80;
+      }
+  
+      button {
+        @apply opacity-90 block;
+      }
+    }
+  
+    .footer {
+        @apply w-full h-[5%]
+        flex justify-between
+        text-lg;
+  
+      .name {
+        @apply w-[90%] mb-4;
+      }
+  
+      .price {
+        @apply w-[10%];
+      }
+    }
+  }
+  

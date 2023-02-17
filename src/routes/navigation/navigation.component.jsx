@@ -20,6 +20,7 @@ const Navigation = () => {
                     </Link>
                 </div>
                 <div className='nav-links-container'>
+                    <Link className='nav-link' to='/shop'>Shop</Link>
                     { currentUser 
                         ? <Link className='nav-link' onClick={ signOutHandler } to='#'>Logout</Link>
                         : <Link className='nav-link' to='/login'>Login</Link>

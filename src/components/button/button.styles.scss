@@ -1,5 +1,6 @@
 .button-container {
-    @apply border border-gray-500
+    @apply justify-center align-middle
+    border border-gray-500
     px-2 py-1
     font-medium
     h-12 min-w-[160px] w-auto;
