@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      'noto-sans-syloti-nagri': ['Noto Sans Syloti Nagri', 'sans serif'],
+      'lato': ['Nunito Sans', 'sans serif'],
     }
   },
   plugins: [],
