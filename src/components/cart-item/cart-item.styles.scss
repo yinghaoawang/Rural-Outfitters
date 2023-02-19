@@ -1,0 +1,30 @@
+.cart-item-container {
+  @apply w-full h-16 mb-4 flex;
+
+  img {
+    width: 30%;
+  }
+
+  .item-details {
+    @apply w-[70%]
+    flex flex-col
+    items-start justify-center
+    py-10 px-2;
+
+    .name {
+      @apply font-bold;
+    }
+
+    .price {
+      @apply font-light
+    }
+
+    .name, .price {
+      @apply w-full;
+
+      span {
+        @apply block truncate;
+      }
+    }
+  }
+}

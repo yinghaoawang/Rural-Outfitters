@@ -1,5 +1,5 @@
 .login-container {
-    @apply flex flex-col w-[360px];
+    @apply w-[360px] flex flex-col;
     .buttons-container {
         @apply flex justify-center gap-2;
         button {

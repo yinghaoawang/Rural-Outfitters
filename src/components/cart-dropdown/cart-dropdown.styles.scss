@@ -1,0 +1,25 @@
+.cart-dropdown-container {
+  @apply absolute w-[260px] h-[380px]
+  flex flex-col p-5
+  border border-gray-600
+  top-[60px] right-[20px]
+  z-[5] bg-white;
+
+  .empty-message {
+    @apply text-lg mx-auto mt-auto;
+    
+    svg {
+      @apply w-[25px] h-auto m-auto mb-2;
+    }
+  }
+
+  .cart-items {
+    @apply h-full mb-3
+    flex flex-col
+    overflow-scroll overflow-y-auto overflow-x-hidden
+  }
+
+  button {
+    @apply mt-auto;
+  }
+}

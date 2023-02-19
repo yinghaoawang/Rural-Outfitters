@@ -11,7 +11,7 @@
     }
 
   .nav-links-container {
-    @apply w-1/2 h-full
+    @apply w-1/2 h-full px-4
     flex items-center justify-end;
 
     .nav-link {

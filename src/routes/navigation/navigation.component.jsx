@@ -5,12 +5,18 @@ import { Outlet, Link } from "react-router-dom";
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/user.context';
 import { signOutAuthUser } from '../../utils/firebase.util';
-import { BiShoppingBag } from 'react-icons/bi';
+import { BiCart as CartIcon } from 'react-icons/bi';
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
+import { CartContext } from '../../contexts/cart.context';
 
 const Navigation = () => {
+    const { isCartOpen, setIsCartOpen } = useContext(CartContext);
     const { currentUser } = useContext(UserContext);
     const signOutHandler = async () => {
         await signOutAuthUser();
+    }
+    const cartClickHandler = () => {
+        setIsCartOpen(!isCartOpen);
     }
     return (
         <>
@@ -26,7 +32,8 @@ const Navigation = () => {
                         ? <Link className='nav-link' onClick={ signOutHandler } to='#'>Logout</Link>
                         : <Link className='nav-link' to='/login'>Login</Link>
                     }
-                    <Link className='nav-link' to='#'><BiShoppingBag className='opacity-90' size={ 22 } /></Link>
+                    <Link className='nav-link' onClick={ cartClickHandler } to='#'><CartIcon size={ 20 } /></Link>
+                    { isCartOpen && <CartDropdown /> }
                 </div>
             </div>
             <Outlet />
