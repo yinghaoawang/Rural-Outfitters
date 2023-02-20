@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import { createAuthUserWithEmailAndPassword } from '../../utils/firebase.util';
+import { Link } from 'react-router-dom';
 
 const defaultFormFields = {
     displayName: '',
@@ -51,14 +52,17 @@ const SignUpForm = () => {
     }
 
     return (
-        <div className='sign-up-container'>
+        <div className='sign-up-container authentication-form-container'>
             <form onSubmit={handleSubmit}>
-                <h1>Sign Up</h1>
+                <h1>Create your account</h1>
                 <FormInput label='Display Name' type='text' required onChange={ handleChange } name='displayName' value={ displayName }/>
                 <FormInput label='Email' type='email' required onChange={ handleChange } name='email' value={ email } />
                 <FormInput label='Password' type='password' required onChange={ handleChange } name='password' value={ password } />
                 <FormInput label='Confirm Password' type='password' required onChange={ handleChange } name='confirmPassword' value={ confirmPassword } />
-                <Button buttonType='inverted' type='submit'>Sign Up</Button>
+                <div className='buttons-container'>
+                    <Button buttonType='inverted' type='submit'>Sign Up</Button>
+                </div>
+                <div className='login-message'>Already have an account? Login <Link to='/login'>here</Link>.</div>
             </form>
         </div>
     );

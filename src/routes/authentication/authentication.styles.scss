@@ -1,6 +1,24 @@
 .authentication-container {
-    @apply flex w-[840px] justify-between
+    @apply flex flex-col w-[80%] max-w-[600px]
     mx-auto my-8 p-8
     border border-gray-500
     text-lg;
+
+    .authentication-form-container {
+        @apply w-full flex flex-col;
+        .buttons-container {
+            @apply flex justify-center gap-2;
+            button {
+                @apply w-full;
+            }
+        }
+        .sign-up-message, .login-message {
+            @apply mt-2;
+
+            a {
+                @apply text-blue-600;
+            }
+        }
+    }
 }
+

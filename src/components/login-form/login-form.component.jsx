@@ -4,11 +4,11 @@ import { useState } from "react";
 import {
     signInWithGooglePopup,
     signInAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth
 } from '../../utils/firebase.util';
 
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
+import { Link } from 'react-router-dom';
 
 const defaultFormFields = {
     email: '',
@@ -57,8 +57,8 @@ const LoginForm = () => {
     }
 
     return (
-        <div className='login-container'>
-            <h1>Login</h1>
+        <div className='login-container authentication-form-container'>
+            <h1>Log in to your account</h1>
             <form onSubmit={ (e) => {console.log('hey'); handleSubmit(e); } }>
                 <FormInput label='Email' type='email' required onChange={ handleChange } name='email' value={ email } />
                 <FormInput label='Password' type='password' required onChange={ handleChange } name='password' value={ password } />
@@ -67,6 +67,8 @@ const LoginForm = () => {
                     <Button type='submit' buttonType='inverted'>Sign In</Button>
                     <Button buttonType='google' onClick={ (e) => { e.preventDefault(); signInWithGoogle(); } }>Google Sign In</Button>
                 </div>
+
+                <div className='sign-up-message'>Don't have an account? Sign up <Link to='/signup'>here</Link>.</div>
             </form>
         </div>
     )
