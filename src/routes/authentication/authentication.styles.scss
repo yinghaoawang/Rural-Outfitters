@@ -1,13 +1,13 @@
 .authentication-container {
-    @apply flex flex-col w-[80%] max-w-[600px]
+    @apply flex flex-col w-[80%] max-w-[400px]
     mx-auto my-8 p-8
-    border border-neutral-400
+    border border-neutral-300
     text-lg;
 
     .authentication-form-container {
         @apply w-full flex flex-col;
         .buttons-container {
-            @apply flex justify-center gap-2;
+            @apply flex justify-center gap-2 mt-4;
             button {
                 @apply w-full;
             }

@@ -59,13 +59,13 @@ const LoginForm = () => {
     return (
         <div className='login-container authentication-form-container'>
             <h1>Log in to your account</h1>
-            <form onSubmit={ (e) => {console.log('hey'); handleSubmit(e); } }>
+            <form onSubmit={ handleSubmit }>
                 <FormInput label='Email' type='email' required onChange={ handleChange } name='email' value={ email } />
                 <FormInput label='Password' type='password' required onChange={ handleChange } name='password' value={ password } />
 
                 <div className='buttons-container'>
                     <Button type='submit' buttonType='inverted'>Sign In</Button>
-                    <Button buttonType='google' onClick={ (e) => { e.preventDefault(); signInWithGoogle(); } }>Google Sign In</Button>
+                    <Button buttonType='google' onClick={ (event) => { event.preventDefault(); signInWithGoogle(); } }>Google Sign In</Button>
                 </div>
 
                 <div className='sign-up-message'>Don't have an account? Sign up <Link to='/signup'>here</Link>.</div>

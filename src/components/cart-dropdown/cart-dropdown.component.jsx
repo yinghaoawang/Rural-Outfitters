@@ -1,20 +1,21 @@
 import Button from '../button/button.component';
 import './cart-dropdown.styles.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as EmptyCartIcon } from '../../assets/empty-cart.svg'
 import { useContext } from 'react';
 import { CartContext } from '../../contexts/cart.context';
 import CartItem from '../cart-item/cart-item.component';
 
-const CartDropdown = () => {
+const CartDropdown = ({className, ...props }) => {
     const navigate = useNavigate();
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, setIsCartOpen } = useContext(CartContext);
     const checkoutHandler = () => {
         navigate('/checkout');
+        setIsCartOpen(false);
     }
 
     return (
-        <div className='cart-dropdown-container'>
+        <div { ...props } className={`cart-dropdown-container ${className}`}>
             { cartItems.length === 0 ?
                 <div className='empty-message'>
                     <EmptyCartIcon />

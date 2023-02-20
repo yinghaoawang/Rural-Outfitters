@@ -1,3 +1,7 @@
-.products-container {
-    @apply grid grid-cols-4 gap-x-3 gap-y-12 mx-6 mb-6;
+.shop {
+    @apply w-[1024px] mx-auto;
+
+    .products-container {
+        @apply grid grid-cols-4 gap-x-3 gap-y-12 mx-6 mb-6;
+    }
 }

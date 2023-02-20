@@ -4,6 +4,10 @@
     px-2 py-1
     text-lg font-semibold
     h-12 min-w-[160px] w-auto;
+
+    &:hover {
+        @apply opacity-90;
+    }
     
     &.google-sign-in {
         @apply bg-blue-700 text-neutral-100 border-none;
