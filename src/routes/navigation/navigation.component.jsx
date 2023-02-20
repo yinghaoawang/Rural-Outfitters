@@ -32,7 +32,7 @@ const Navigation = () => {
                         ? <Link className='nav-link' onClick={ signOutHandler } to='#'>Logout</Link>
                         : <Link className='nav-link' to='/login'>Login</Link>
                     }
-                    <Link className='nav-link' onClick={ cartClickHandler } to='#'><CartIcon size={ 20 } /></Link>
+                    <Link className='nav-link' onClick={ cartClickHandler } to='#'><CartIcon size={ 22 } /></Link>
                     { isCartOpen && <CartDropdown /> }
                 </div>
             </div>

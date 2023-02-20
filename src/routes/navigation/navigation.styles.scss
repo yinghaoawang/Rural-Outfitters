@@ -15,8 +15,7 @@
     flex items-center justify-end;
 
     .nav-link {
-        @apply px-6;
-      cursor: pointer;
+        @apply px-6 cursor-pointer text-lg;
     }
   }
 }

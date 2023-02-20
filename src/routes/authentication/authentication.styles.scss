@@ -1,5 +1,6 @@
 .authentication-container {
     @apply flex w-[840px] justify-between
     mx-auto my-8 p-8
-    border border-gray-500;
+    border border-gray-500
+    text-lg;
 }
