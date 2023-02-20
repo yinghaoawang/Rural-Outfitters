@@ -11,13 +11,13 @@ const ProductCard = ({ product, ...props }) => {
         setIsCartOpen(true);
     }
     return (
-        <div className='product-card-container' { ...props }>
+        <div onClick={ addProductToCart } className='product-card-container ignore-outside-click' { ...props }>
             <img alt={ name } src={ imageUrl } />
             <div className='footer'>
                 <span className='name'>{ name }</span>
                 <span className='price'>{ price }</span>
             </div>
-            <Button onClick={ addProductToCart } buttonType='inverted' className='ignore-outside-click'>Add to Cart</Button>
+            <Button buttonType='inverted'>Add to Cart</Button>
         </div>
     );
 }
