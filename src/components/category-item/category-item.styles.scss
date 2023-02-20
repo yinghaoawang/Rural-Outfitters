@@ -3,7 +3,7 @@
     @apply min-w-[28%] h-60
     flex items-center justify-center 
     flex-grow flex-shrink basis-auto
-    border border-black
+    border border-neutral-400
     m-2
     overflow-hidden;
 
@@ -40,7 +40,7 @@
         @apply absolute h-20 p-6
         flex flex-col items-center justify-center
         bg-white opacity-70
-        border border-black;
+        border border-neutral-400;
 
         h2 {
             @apply font-bold text-[#4a4a4a] text-xl mx-1.5;

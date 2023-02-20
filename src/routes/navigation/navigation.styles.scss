@@ -1,6 +1,7 @@
 .navigation {
-    @apply h-16 w-full
-    flex justify-between;
+    @apply h-16 w-full z-50 bg-white
+    border-b border-b-neutral-200
+    flex justify-between sticky top-0;
 
     .logo-container {
         @apply h-full w-16 p-3 ml-3;

@@ -1,7 +1,7 @@
 .authentication-container {
     @apply flex flex-col w-[80%] max-w-[600px]
     mx-auto my-8 p-8
-    border border-gray-500
+    border border-neutral-400
     text-lg;
 
     .authentication-form-container {
@@ -13,10 +13,10 @@
             }
         }
         .sign-up-message, .login-message {
-            @apply mt-2;
+            @apply mt-3;
 
             a {
-                @apply text-blue-600;
+                @apply text-blue-700;
             }
         }
     }
