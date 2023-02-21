@@ -1,12 +1,27 @@
 import FormInput from '../form-input/form-input.component';
 import './shop-filter.styles.scss';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ProductContext } from '../../contexts/product.context';
 import { FilterContext } from '../../contexts/filter.context';
 
 const ShopFilter = () => {
     const { categories } = useContext(ProductContext);
-    const { addFilteredCategory, removeFilteredCategory } = useContext(FilterContext);
+    const simpleCategories = categories.map(category => category.title);
+    
+    const { searchKey, setSearchKey, filteredCategories, addFilteredCategory, removeFilteredCategory, clearFilteredCategories } = useContext(FilterContext);
+
+    useEffect(() => {
+        return () => {
+            clearFilteredCategories();
+            setSearchKey('');
+        }
+    }, []);
+
+    const searchBoxChangeHandler = (event) => {
+        const { value } = event.target;
+        setSearchKey(value)
+    }
+
     const checkboxChangeHandler = (event) => {
         const { target } = event;
         const { checked, id } = target;
@@ -22,12 +37,12 @@ const ShopFilter = () => {
             <h2>Filters</h2>
             <h4>Search</h4>
             <div className='inputs search-input'>
-                <input type='search' />
+                <input onChange={ searchBoxChangeHandler } value={ searchKey } type='search' />
             </div>
             <h4>Categories</h4>
             <div className='inputs category-inputs'>
-                { categories.map((category, index) => (
-                    <FormInput onChange={ checkboxChangeHandler } key={ index } inputType='checkbox' label={ category } />
+                { simpleCategories.map((category, index) => (
+                    <FormInput checked={ filteredCategories.includes(category) } onChange={ checkboxChangeHandler } key={ index } inputType='checkbox' label={ category } />
                 ))}
             </div>
             

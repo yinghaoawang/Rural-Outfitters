@@ -22,7 +22,7 @@ const addCartItem = (cartItems, itemToAdd) => {
         });
     }
 
-    return [ ...cartItems, { ...itemToAdd, quantity: 1 } ];
+    return [ { ...itemToAdd, quantity: 1 }, ...cartItems ];
 }
 
 const removeCartItem = (cartItems, itemToRemove) => {

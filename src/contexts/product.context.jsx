@@ -17,14 +17,6 @@ const addUnisexCategory = (categories) => {
     return [];
 }
 
-const getUniqueCategories = (categories, newCategories) => {
-    const result = [];
-    newCategories.forEach(category => {
-        if (!categories.includes(category)) result.push(category);
-    });
-    return result;
-}
-
 export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -32,24 +24,32 @@ export const ProductProvider = ({ children }) => {
     const value = { products, setProducts, categories, getCategoriesFromProduct };
 
     useEffect(() => {
-        const q = query(collection(db, 'products'), orderBy('id'));
-        getDocs(q).then(querySnapshot => {
-            const productData = [];
-            const categoryData = [];
+        const categoryQuery = query(collection(db, 'categories'), orderBy('id'));
+        getDocs(categoryQuery).then(querySnapshot => {
+            const categories = [];
+            querySnapshot.forEach(doc => {
+                const category = doc.data();
+                categories.push(category);
+            });
+            setCategories(categories);
+        });
+    }, []);
 
+    useEffect(() => {
+        const productQuery = query(collection(db, 'products'), orderBy('id'));
+        getDocs(productQuery).then(querySnapshot => {
+            const products = [];
             querySnapshot.forEach(doc => {
                 const product = doc.data();
                 const { categories } = product;
                 product.categories = [...categories, ...addUnisexCategory(categories)];
-                productData.push(product);
-                categoryData.push(...getUniqueCategories(categoryData, doc.data().categories));
+                products.push(product);                
             });
-            setProducts(productData);
-            setCategories(categoryData);
+            setProducts(products);
         });
     }, []);
 
     return (
         <ProductContext.Provider value={ value }>{ children }</ProductContext.Provider>
-    )
+    );
 }

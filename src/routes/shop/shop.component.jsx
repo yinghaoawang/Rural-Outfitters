@@ -7,9 +7,11 @@ import { FilterContext } from '../../contexts/filter.context';
 
 const Shop = () => {
     const { products, getCategoriesFromProduct } = useContext(ProductContext);
-    const { filteredCategories } = useContext(FilterContext);
+    const { filteredCategories, searchKey } = useContext(FilterContext);
 
     const filteredProducts = products.filter(product => {
+        if (!product.name.toLowerCase().includes(searchKey.toLowerCase())) return false;
+
         const categories = getCategoriesFromProduct(product);
         for (let filteredCategory of filteredCategories) {
             if (!categories.includes(filteredCategory)) return false;
