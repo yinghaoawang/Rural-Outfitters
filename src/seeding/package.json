@@ -1,6 +1,0 @@
-{
-    "type": "module",
-    "scripts": {
-        "seed": "node ./src/seeding/seed-db.js"
-    }
-}

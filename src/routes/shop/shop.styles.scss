@@ -1,7 +1,11 @@
 .shop {
-    @apply w-[1024px] mx-auto;
+    @apply flex;
 
     .products-container {
-        @apply grid grid-cols-4 gap-x-3 gap-y-20 mx-6 mt-3 mb-10;
+        @apply mx-auto w-full ;
+
+        .products-grid-container {
+            @apply mx-auto grid grid-cols-4 gap-x-3 gap-y-20 mx-6 mt-3 mb-10;
+        }
     }
 }

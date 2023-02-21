@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './contexts/user.context';
 import { ProductProvider } from './contexts/product.context';
 import { CartProvider } from './contexts/cart.context';
+import { FilterProvider } from './contexts/filter.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +15,11 @@ root.render(
     <BrowserRouter basename='/rural-outfitters'>
       <UserProvider>
         <CartProvider>
-          <ProductProvider>
-            <App />
-          </ProductProvider>
+          <FilterProvider>
+            <ProductProvider>
+              <App />
+            </ProductProvider>
+          </FilterProvider>
         </CartProvider>
       </UserProvider>
     </BrowserRouter>

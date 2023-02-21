@@ -10,3 +10,14 @@
         p-1 w-full;
     }
 }
+
+.group.checkbox {
+    @apply flex;
+
+    .form-input-label {
+        @apply ml-2;
+    }
+    .form-input {
+        @apply w-auto;
+    }
+}

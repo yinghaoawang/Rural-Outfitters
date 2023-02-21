@@ -1,0 +1,30 @@
+.shop-filter-container {
+    @apply min-w-[280px] w-[15%] shrink-0
+    px-4 py-2
+    bg-gray-100 border-r border-r-gray-200
+    ;
+    
+    h4 {
+        @apply mt-2;
+    }
+
+    .inputs {
+        @apply text-lg font-normal ml-4 mb-6 select-none;
+
+        label {
+            @apply capitalize;
+        }
+
+        &.search-input {
+            @apply flex;
+
+            input {
+                @apply border border-neutral-500
+                w-full h-8 pl-1 py-2 mt-2 mr-4 text-base
+                outline-0;
+            }
+        }    
+    }
+
+    
+}

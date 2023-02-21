@@ -1,3 +1,4 @@
+// Make sure to add "type": "module", to package.json before running
 import { db } from '../utils/firebase.util.js';
 import { collection, doc, writeBatch } from 'firebase/firestore';
 import SHOP_DATA from './shop-data.js';
@@ -9,8 +10,7 @@ SHOP_DATA.map(async collectionData => {
         const collectionRef = collection(db, title);
 
         items.forEach(item =>  {
-            console.log(item);
-            const { id, name } = item;
+q            const { id, name } = item;
             const docRef = doc(collectionRef, name);
             batch.set(docRef, item);
         });
