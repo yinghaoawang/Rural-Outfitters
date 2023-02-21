@@ -1,8 +1,7 @@
 .shop-filter-container {
-    @apply min-w-[280px] w-[15%] shrink-0
-    px-4 py-2
-    bg-gray-100 border-r border-r-gray-200
-    ;
+    @apply min-w-[280px] w-[15%] min-h-screen
+    shrink-0 px-4 py-2
+    bg-gray-100 border-r border-r-gray-200;
     
     h4 {
         @apply mt-2;

@@ -18,7 +18,7 @@
 }
 
 body {
-  @apply font-nunito-sans font-semibold;
+  @apply font-nunito-sans font-semibold min-h-[100vh];
 }
 
 ::-webkit-scrollbar {
