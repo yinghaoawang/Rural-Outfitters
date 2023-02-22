@@ -1,8 +1,12 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { rootReducer } from './root-reducer';
-import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
+const loggerMiddleware = (store) => (next) => (action) => {
+    console.log('dispatching', action.type , action);
+    next(action);
+}
 
 const persistConfig = {
     key: 'root',
@@ -12,7 +16,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares = [logger];
+const middlewares = [loggerMiddleware];
 
 const composedEnhancers = compose(applyMiddleware(...middlewares));
 

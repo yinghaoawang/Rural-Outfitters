@@ -25,7 +25,6 @@ function App() {
               categories.push(category);
           });
           dispatch(setCategories(categories));
-          console.log(categories);
       });
   }, []);
 
@@ -47,7 +46,6 @@ function App() {
             products.push(product);                
         });
         dispatch(setProducts(products));
-        console.log(products);
     });
   }, []);
 
