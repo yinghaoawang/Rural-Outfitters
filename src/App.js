@@ -10,7 +10,8 @@ import { useEffect } from 'react';
 import { setCurrentUser } from './store/user/user.action';
 import { useDispatch } from 'react-redux';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { setProducts, setCategories } from './store/product/product.action';
+import { setProducts } from './store/products/products.action';
+import { setCategories } from './store/categories/categories.action';
 
 function App() {
   const dispatch = useDispatch();

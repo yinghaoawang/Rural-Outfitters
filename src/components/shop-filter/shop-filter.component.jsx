@@ -5,7 +5,7 @@ import { FilterContext } from '../../contexts/filter.context';
 import { useSelector } from 'react-redux';
 
 const ShopFilter = () => {
-    const { categories } = useSelector(state => state.product);
+    const { categories } = useSelector(state => state.categories);
     const simpleCategories = categories.map(category => category.title);
     
     const { searchKey, setSearchKey, filteredCategories, addFilteredCategory, removeFilteredCategory, clearFilteredCategories } = useContext(FilterContext);
