@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
 import { db } from '../utils/firebase.util';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
@@ -9,6 +9,34 @@ export const ProductContext = createContext({
     getCategoriesFromProduct: () => [],
 });
 
+const INITIAL_VALUES = {
+    products: [],
+    categories: [],
+}
+
+const PRODUCT_ACTION_TYPES = {
+    SET_PRODUCTS: 'SET_PRODUCTS',
+    SET_CATEGORIES: 'SET_CATEGORIES',
+};
+
+const productReducer = (state, action) => {
+    const { type, payload } = action;
+    switch (type) {
+        case PRODUCT_ACTION_TYPES.SET_PRODUCTS:
+            return {
+                ...state,
+                products: payload
+            }
+        case PRODUCT_ACTION_TYPES.SET_CATEGORIES:
+            return {
+                ...state,
+                categories: payload
+            }
+        default:
+            throw new Error(`Unhandled type ${type} in productReducer`);
+    }
+};
+
 // If product's categories doesn't contain a gender, add men and women to it
 const addUnisexCategory = (categories) => {
     if (!categories.includes('men') && !categories.includes('women')) {
@@ -18,10 +46,19 @@ const addUnisexCategory = (categories) => {
 }
 
 export const ProductProvider = ({ children }) => {
-    const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const [{ products, categories }, dispatch] = useReducer(productReducer, INITIAL_VALUES);
+
     const getCategoriesFromProduct = (product) => product.categories;
-    const value = { products, setProducts, categories, getCategoriesFromProduct };
+
+    const value = { products, categories, getCategoriesFromProduct };
+
+    const updateProductsReducer = (newProducts) => {
+        dispatch({ type: PRODUCT_ACTION_TYPES.SET_PRODUCTS, payload: newProducts });
+    }
+
+    const updateCategoriesReducer = (newCategories) => {
+        dispatch({ type: PRODUCT_ACTION_TYPES.SET_CATEGORIES, payload: newCategories });
+    }
 
     useEffect(() => {
         const categoryQuery = query(collection(db, 'categories'), orderBy('id'));
@@ -31,7 +68,7 @@ export const ProductProvider = ({ children }) => {
                 const category = doc.data();
                 categories.push(category);
             });
-            setCategories(categories);
+            updateCategoriesReducer(categories);
         });
     }, []);
 
@@ -45,7 +82,7 @@ export const ProductProvider = ({ children }) => {
                 product.categories = [...categories, ...addUnisexCategory(categories)];
                 products.push(product);                
             });
-            setProducts(products);
+            updateProductsReducer(products);
         });
     }, []);
 

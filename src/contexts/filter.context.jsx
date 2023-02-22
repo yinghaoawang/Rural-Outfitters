@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from 'react';
 
 export const FilterContext = createContext({
     searchKey: '',
@@ -9,16 +9,47 @@ export const FilterContext = createContext({
     clearFilteredCategories: () => null,
 });
 
+const FILTER_ACTION_TYPES = {
+    SET_SEARCH_KEY: 'SET_SEARCH_KEY',
+    SET_FILTERED_CATEGORIES: 'SET_FILTERED_CATEGORIES',
+}
+
+const INITIAL_VALUES = {
+    searchKey: '',
+    filteredCategories: [],
+};
+
+const filterReducer = (state, action) => {
+    const { type, payload } = action;
+    switch (type) {
+        case FILTER_ACTION_TYPES.SET_SEARCH_KEY:
+            return {
+                ...state,
+                searchKey: payload
+            }
+        case FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES:
+            return {
+                ...state,
+                filteredCategories: payload
+            }
+        default:
+            throw new Error(`Unhandled type ${type} in filterReducer`);
+    }
+};
+
 export const FilterProvider = ({ children }) => {
-    const [searchKey, setSearchKey] = useState('');
-    const [filteredCategories, setFilteredCategories] = useState([]);
+    const [{ searchKey, filteredCategories }, dispatch] = useReducer(filterReducer, INITIAL_VALUES);
+
+    const setSearchKey = (newSearchKey) => {
+        dispatch({ type: FILTER_ACTION_TYPES.SET_SEARCH_KEY, payload: newSearchKey })
+    }
     
     const addFilteredCategory = (category) => {
         if (filteredCategories.includes(category)) {
             console.log('Category already filtered, could not add ', category);
             return;
         }
-        setFilteredCategories([ ...filteredCategories, category ]);
+        dispatch({ type: FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, payload: [ ...filteredCategories, category ] })
     }
 
     const removeFilteredCategory = (category) => {
@@ -26,11 +57,11 @@ export const FilterProvider = ({ children }) => {
             console.log('Category not filtered, could not remove ', category);
             return;
         }
-        setFilteredCategories([ ...filteredCategories.filter(item => item !== category) ]);
+        dispatch({ type: FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, payload: [ ...filteredCategories.filter(item => item !== category) ] })
     }
 
     const clearFilteredCategories = () => {
-        setFilteredCategories([]);
+        dispatch({ type: FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, payload: [] })
     }
 
     const value = { searchKey, setSearchKey, filteredCategories, addFilteredCategory, removeFilteredCategory, clearFilteredCategories };

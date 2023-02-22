@@ -50,7 +50,8 @@ const clearCartItem = (cartItems, itemToClear) => {
 }
 
 const CART_ACTION_TYPES = {
-    SET_CART_ITEMS: 0, SET_IS_CART_OPEN: 1
+    SET_CART_ITEMS: 'SET_CART_ITEMS',
+    SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
 }
 
 const INITIAL_STATE = {
