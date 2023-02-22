@@ -1,14 +1,16 @@
 import Button from '../button/button.component';
 import './product-card.styles.scss';
-import { useContext } from 'react';
-import { CartContext } from '../../contexts/cart.context';
+import { addItemToCart, setIsCartOpen } from '../../store/cart/cart.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartItems } from '../../store/cart/cart.selector';
 
 const ProductCard = ({ product, ...props }) => {
+    const dispatch = useDispatch();
+    const cartItems = useSelector(selectCartItems);
     const { name, imageUrl, price } = product;
-    const { addItemToCart, setIsCartOpen } = useContext(CartContext);
     const addProductToCart = () => {
-        addItemToCart(product);
-        setIsCartOpen(true);
+        dispatch(addItemToCart(cartItems, product));
+        dispatch(setIsCartOpen(true));
     }
     return (
         <div onClick={ addProductToCart } className='product-card-container ignore-outside-click' { ...props }>

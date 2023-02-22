@@ -1,8 +1,10 @@
-import { ProductsActionTypes } from './products.types';
-
 const initialValues = {
     products: [],
 }
+
+export const ProductsActionTypes = {
+    SET_PRODUCTS: 'SET_PRODUCTS',
+};
 
 export const productsReducer = (state = initialValues, action) => {
     const { type, payload } = action;

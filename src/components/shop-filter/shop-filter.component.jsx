@@ -3,9 +3,10 @@ import './shop-filter.styles.scss';
 import { useContext, useEffect } from 'react';
 import { FilterContext } from '../../contexts/filter.context';
 import { useSelector } from 'react-redux';
+import { selectCategories } from '../../store/categories/categories.selector';
 
 const ShopFilter = () => {
-    const { categories } = useSelector(state => state.categories);
+    const categories = useSelector(selectCategories);
     const simpleCategories = categories.map(category => category.title);
     
     const { searchKey, setSearchKey, filteredCategories, addFilteredCategory, removeFilteredCategory, clearFilteredCategories } = useContext(FilterContext);

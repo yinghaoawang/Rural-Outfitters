@@ -2,21 +2,24 @@ import './navigation.styles.scss';
 import Logo from '../../assets/logo.svg';
 import { Outlet, Link } from "react-router-dom";
 
-import { useContext, useEffect } from 'react';
+import {  useEffect } from 'react';
 import { signOutAuthUser } from '../../utils/firebase.util';
 import { BiCart as CartIcon } from 'react-icons/bi';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
-import { CartContext } from '../../contexts/cart.context';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsCartOpen } from '../../store/cart/cart.action';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 const Navigation = () => {
-    const { isCartOpen, setIsCartOpen } = useContext(CartContext);
-    const currentUser = useSelector((state) => state.user.currentUser);
+    const dispatch = useDispatch();
+    const isCartOpen = useSelector(selectIsCartOpen);
+    const currentUser = useSelector(selectCurrentUser);
     const signOutHandler = async () => {
         await signOutAuthUser();
     }
     const cartClickHandler = () => {
-        setIsCartOpen(!isCartOpen);
+        dispatch(setIsCartOpen(!isCartOpen));
     }
     const outsideClickHandler = (event) => {
         const { target } = event;
@@ -25,7 +28,7 @@ const Navigation = () => {
             if (ignoreClickElement.contains(target)) return;
         }
         
-        setIsCartOpen(false);
+        dispatch(setIsCartOpen(false));
     }
 
     useEffect(() => {

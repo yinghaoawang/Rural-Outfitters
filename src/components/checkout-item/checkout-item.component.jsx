@@ -1,12 +1,14 @@
 import './checkout-item.styles.scss';
 
-import { useContext } from 'react';
-import { CartContext } from '../../contexts/cart.context';
 import { BiChevronLeft as ChevronLeft, BiChevronRight as ChevronRight } from 'react-icons/bi';
+import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../../store/cart/cart.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartItems } from '../../store/cart/cart.selector';
 
 const CheckoutItem = ({ cartItem }) => {
+    const dispatch = useDispatch();
+    const cartItems = useSelector(selectCartItems);
     const { name, quantity, price, imageUrl } = cartItem;
-    const { addItemToCart, removeItemFromCart, clearItemFromCart } = useContext(CartContext);
                     
     return (
         <div className='checkout-item-container'>
@@ -15,12 +17,12 @@ const CheckoutItem = ({ cartItem }) => {
             </div>
             <div className='name'>{ name }</div>
             <div className='quantity'>
-                <ChevronLeft className='arrow' onClick={ () => removeItemFromCart(cartItem) } />
+                <ChevronLeft className='arrow' onClick={ () => dispatch(removeItemFromCart(cartItems, cartItem)) } />
                 <div className='value'>{ quantity }</div>
-                <ChevronRight className='arrow' onClick={ () => addItemToCart(cartItem) } />
+                <ChevronRight className='arrow' onClick={ () => dispatch(addItemToCart(cartItems, cartItem)) } />
             </div>
             <div className='price'>${ price }</div>
-            <div className='cursor-pointer' onClick={ () => clearItemFromCart(cartItem) }>&#10005;</div>
+            <div className='cursor-pointer' onClick={ () => dispatch(clearItemFromCart(cartItems, cartItem)) }>&#10005;</div>
         </div>
     );
 }
