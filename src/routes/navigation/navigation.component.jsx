@@ -3,15 +3,15 @@ import Logo from '../../assets/logo.svg';
 import { Outlet, Link } from "react-router-dom";
 
 import { useContext, useEffect } from 'react';
-import { UserContext } from '../../contexts/user.context';
 import { signOutAuthUser } from '../../utils/firebase.util';
 import { BiCart as CartIcon } from 'react-icons/bi';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { CartContext } from '../../contexts/cart.context';
+import { useSelector } from 'react-redux';
 
 const Navigation = () => {
     const { isCartOpen, setIsCartOpen } = useContext(CartContext);
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector((state) => state.user.currentUser);
     const signOutHandler = async () => {
         await signOutAuthUser();
     }
