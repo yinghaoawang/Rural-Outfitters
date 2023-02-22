@@ -5,13 +5,50 @@ import Login from './routes/authentication/login.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
 import SignUp from './routes/authentication/sign-up.component';
-import { createUserDocumentFromAuth, onAuthStateChangedListener } from './utils/firebase.util';
+import { createUserDocumentFromAuth, db, onAuthStateChangedListener } from './utils/firebase.util';
 import { useEffect } from 'react';
 import { setCurrentUser } from './store/user/user.action';
 import { useDispatch } from 'react-redux';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { setProducts, setCategories } from './store/product/product.action';
 
 function App() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const categoryQuery = query(collection(db, 'categories'), orderBy('id'));
+      getDocs(categoryQuery).then(querySnapshot => {
+          const categories = [];
+          querySnapshot.forEach(doc => {
+              const category = doc.data();
+              categories.push(category);
+          });
+          dispatch(setCategories(categories));
+          console.log(categories);
+      });
+  }, []);
+
+  useEffect(() => {
+    // If product's categories doesn't contain a gender, add men and women to it
+    const addUnisexCategory = (categories) => {
+      if (!categories.includes('men') && !categories.includes('women')) {
+          return ['men', 'women'];
+      }
+      return [];
+    }
+    const productQuery = query(collection(db, 'products'), orderBy('id'));
+    getDocs(productQuery).then(querySnapshot => {
+        const products = [];
+        querySnapshot.forEach(doc => {
+            const product = doc.data();
+            const { categories } = product;
+            product.categories = [...categories, ...addUnisexCategory(categories)];
+            products.push(product);                
+        });
+        dispatch(setProducts(products));
+        console.log(products);
+    });
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
@@ -20,7 +57,6 @@ function App() {
         }
         dispatch(setCurrentUser(user));
     });
-
     return unsubscribe;
   }, []);
 

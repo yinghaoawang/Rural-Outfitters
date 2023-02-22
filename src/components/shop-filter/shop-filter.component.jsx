@@ -1,11 +1,11 @@
 import FormInput from '../form-input/form-input.component';
 import './shop-filter.styles.scss';
 import { useContext, useEffect } from 'react';
-import { ProductContext } from '../../contexts/product.context';
 import { FilterContext } from '../../contexts/filter.context';
+import { useSelector } from 'react-redux';
 
 const ShopFilter = () => {
-    const { categories } = useContext(ProductContext);
+    const { categories } = useSelector(state => state.product);
     const simpleCategories = categories.map(category => category.title);
     
     const { searchKey, setSearchKey, filteredCategories, addFilteredCategory, removeFilteredCategory, clearFilteredCategories } = useContext(FilterContext);
