@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { db } from '../utils/firebase.util';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { createAction } from '../utils/helper.util';
 
 export const ProductContext = createContext({
     products: [],
@@ -53,11 +54,11 @@ export const ProductProvider = ({ children }) => {
     const value = { products, categories, getCategoriesFromProduct };
 
     const updateProductsReducer = (newProducts) => {
-        dispatch({ type: PRODUCT_ACTION_TYPES.SET_PRODUCTS, payload: newProducts });
+        dispatch(createAction(PRODUCT_ACTION_TYPES.SET_PRODUCTS, newProducts ));
     }
 
     const updateCategoriesReducer = (newCategories) => {
-        dispatch({ type: PRODUCT_ACTION_TYPES.SET_CATEGORIES, payload: newCategories });
+        dispatch(createAction(PRODUCT_ACTION_TYPES.SET_CATEGORIES, newCategories ));
     }
 
     useEffect(() => {

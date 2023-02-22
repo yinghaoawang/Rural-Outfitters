@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { createAction } from '../utils/helper.util';
 
 export const FilterContext = createContext({
     searchKey: '',
@@ -41,7 +42,7 @@ export const FilterProvider = ({ children }) => {
     const [{ searchKey, filteredCategories }, dispatch] = useReducer(filterReducer, INITIAL_VALUES);
 
     const setSearchKey = (newSearchKey) => {
-        dispatch({ type: FILTER_ACTION_TYPES.SET_SEARCH_KEY, payload: newSearchKey })
+        dispatch(createAction(FILTER_ACTION_TYPES.SET_SEARCH_KEY,newSearchKey));
     }
     
     const addFilteredCategory = (category) => {
@@ -49,7 +50,7 @@ export const FilterProvider = ({ children }) => {
             console.log('Category already filtered, could not add ', category);
             return;
         }
-        dispatch({ type: FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, payload: [ ...filteredCategories, category ] })
+        dispatch(createAction(FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, [ ...filteredCategories, category ] ));
     }
 
     const removeFilteredCategory = (category) => {
@@ -57,11 +58,11 @@ export const FilterProvider = ({ children }) => {
             console.log('Category not filtered, could not remove ', category);
             return;
         }
-        dispatch({ type: FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, payload: [ ...filteredCategories.filter(item => item !== category) ] })
+        dispatch(createAction(FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, [ ...filteredCategories.filter(item => item !== category) ] ));
     }
 
     const clearFilteredCategories = () => {
-        dispatch({ type: FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, payload: [] })
+        dispatch(createAction(FILTER_ACTION_TYPES.SET_FILTERED_CATEGORIES, [] ));
     }
 
     const value = { searchKey, setSearchKey, filteredCategories, addFilteredCategory, removeFilteredCategory, clearFilteredCategories };
