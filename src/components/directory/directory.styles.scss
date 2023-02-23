@@ -1,3 +1,11 @@
 .categories-container {
-  @apply w-full flex flex-wrap justify-between gap-y-4
+  @apply grid grid-cols-3 gap-x-3 gap-y-4;
+
+  @media (max-width: 1024px) {
+    @apply grid-cols-2;
+  }
+
+  @media (max-width: 700px) {
+    @apply grid-cols-1;
+  }
 }

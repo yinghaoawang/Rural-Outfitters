@@ -1,9 +1,19 @@
 .cart-dropdown-container {
-  @apply absolute w-[260px] h-[380px]
+  @apply absolute w-[260px] h-[300px]
   flex flex-col p-5
   border border-neutral-300
   top-[60px] right-[20px]
   z-[5] bg-white;
+
+  @media (min-width: 700px) {
+    width: 280px;
+    height: 320px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 320px;
+    height: 360px;
+  }
 
   .empty-message {
     @apply text-lg mx-auto mt-auto;

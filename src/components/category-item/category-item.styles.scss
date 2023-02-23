@@ -1,7 +1,9 @@
 .categories-container {
+  @apply mx-3;
+
   .category-container {
-    @apply w-[28%] h-[500px] m-2
-    flex flex-col flex-grow;
+    @apply h-[500px]
+    flex flex-col;
 
     &:hover {
       cursor: pointer;
@@ -15,16 +17,10 @@
       }
     }
 
-    &.large {
-      height: 380px;
-    }
-
-    &:first-child {
-      margin-right: 7.5px;
-    }
-
     &:last-child {
-      margin-left: 7.5px;
+      @media (min-width: 700px) and (max-width:1024px) {
+        @apply hidden;
+      }
     }
 
     .background-image {

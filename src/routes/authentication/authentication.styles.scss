@@ -11,6 +11,10 @@
             button {
                 @apply w-full;
             }
+
+            @media (max-width: 500px) {
+                @apply flex-col;
+            }
         }
         .sign-up-message, .login-message {
             @apply mt-3;

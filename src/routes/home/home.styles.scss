@@ -1,5 +1,9 @@
 body {
   .outer-container {
     @apply w-[1024px] mx-auto;
+  
+    @media (max-width: 1024px) {
+      @apply w-auto;
+    }
   }
 }
