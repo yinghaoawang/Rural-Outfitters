@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { cartReducer } from './cart/cart.reducer';
 import { categoriesReducer } from './categories/categories.reducer';
 import { productsReducer } from './products/products.reducer';
+import { stripeReducer } from './stripe/stripe.reducer';
 import { userReducer } from './user/user.reducer';
 
 export const rootReducer = combineReducers({
@@ -9,4 +10,5 @@ export const rootReducer = combineReducers({
     products: productsReducer,
     categories: categoriesReducer,
     cart: cartReducer,
+    stripe: stripeReducer
 });

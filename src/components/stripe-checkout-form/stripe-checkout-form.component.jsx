@@ -2,34 +2,64 @@ import React, { useEffect, useState } from "react";
 import './stripe-checkout-form.styles.scss'
 import {
   PaymentElement,
-  LinkAuthenticationElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
 import Button from '../button/button.component';
-import { ThreeDots } from 'react-loading-icons';
+import { Puff } from 'react-loading-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectClientSecret } from '../../store/stripe/stripe.selector';
+import { useNavigate } from 'react-router-dom';
+import { emptyCart } from '../../store/cart/cart.action';
 
-export default function StripeCheckoutForm({ clientSecret, returnUrl }) {
+export default function StripeCheckoutForm({ returnUrl }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const clientSecret = useSelector(selectClientSecret);
+
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!stripe) {
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
       return;
     }
 
-    if (!clientSecret) {
+    setIsLoading(true);
+
+    const res = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: returnUrl,
+      },
+      redirect: 'if_required'
+    });
+
+    setIsLoading(false);
+
+    const { paymentIntent, error } = res;
+
+    if (error) {
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message);
+      } else {
+          console.error(error.message);
+          setMessage("An unexpected error occurred.");
+      }
       return;
     }
 
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+    if (paymentIntent) {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
+          dispatch(emptyCart());
+          navigate('/checkout/success');
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -42,51 +72,21 @@ export default function StripeCheckoutForm({ clientSecret, returnUrl }) {
           setMessage("Something went wrong.");
           break;
       }
-    });
-  }, [stripe]);
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    setIsLoading(true);
-    console.log(returnUrl);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: returnUrl,
-      },
-    });
-
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
     } else {
-        console.error(error.message);
-        setMessage("An unexpected error occurred.");
+      setMessage("Something went wrong.");
     }
-
-    setIsLoading(false);
   };
 
   const paymentElementOptions = {
     layout: "tabs"
   }
 
-  const LinkAuthenticationChangeHandler = (event) => {
-    if (event.target?.value) setEmail(event.target.value);
-  }
-
   return (
     <form id="payment-form" onSubmit={ submitHandler }>
-      <LinkAuthenticationElement id="link-authentication-element" onChange={ LinkAuthenticationChangeHandler } />
       <PaymentElement id="payment-element" options={ paymentElementOptions } />
       <Button buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
         <span id="button-text">
-          {isLoading ? <ThreeDots /> : "Pay now"}
+          {isLoading ? <Puff /> : "Pay now"}
         </span>
       </Button>
       {message && <div id="payment-message">{ message }</div>}

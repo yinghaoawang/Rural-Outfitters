@@ -45,3 +45,4 @@ export const setIsCartOpen = (value => createAction(CartActionTypes.SET_IS_CART_
 export const addItemToCart = ((cartItems, itemToAdd) => createAction(CartActionTypes.SET_CART_ITEMS, addCartItem(cartItems, itemToAdd)));
 export const removeItemFromCart = ((cartItems, itemToRemove) => createAction(CartActionTypes.SET_CART_ITEMS, removeCartItem(cartItems, itemToRemove)));
 export const clearItemFromCart = ((cartItems, itemToClear) => createAction(CartActionTypes.SET_CART_ITEMS, clearCartItem(cartItems, itemToClear)));
+export const emptyCart = (() => createAction(CartActionTypes.SET_CART_ITEMS, []));

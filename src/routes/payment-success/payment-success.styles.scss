@@ -1,0 +1,15 @@
+.payment-success-container {
+    @apply flex flex-col mt-8 justify-center text-center;
+
+    h1 {
+        @apply text-4xl;
+    }
+
+    .message {
+        @apply mt-3;
+
+        a {
+            @apply text-blue-500;
+        }
+    }
+}
