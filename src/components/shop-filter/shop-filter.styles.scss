@@ -19,6 +19,14 @@
     .inputs {
         @apply text-lg font-normal ml-4 mb-6 select-none;
 
+        @media (max-width: 500px) {
+            @apply grid grid-cols-2;
+        }
+
+        @media (max-width: 350px) {
+            @apply grid-cols-1;
+        }
+
         label {
             @apply capitalize;
         }
