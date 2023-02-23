@@ -1,5 +1,5 @@
 .checkout-container {
-  @apply flex mx-auto w-[1024px];
+  @apply flex w-[1024px] mx-auto;
   
   .checkout-items-container {
     @apply w-[55%] min-h-[90vh]
@@ -17,7 +17,7 @@
         @apply w-[18%] capitalize;
 
         &:first-child {
-          width: 80px
+          @apply w-20;
         }
   
         &:last-child {
