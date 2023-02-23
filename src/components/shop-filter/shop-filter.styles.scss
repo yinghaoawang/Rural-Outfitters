@@ -1,7 +1,16 @@
 .shop-filter-container {
-    @apply min-w-[280px] w-[15%] min-h-screen
+    @apply w-[240px] min-h-screen
     shrink-0 px-4 py-2
     bg-gray-100 border-r border-r-gray-200;
+
+    @media (max-width: 500px) {
+        @apply min-h-0 mb-2;
+        width: 100% !important;
+    }
+
+    @media (max-width: 700px) {
+        width: 200px;
+    }
     
     h4 {
         @apply mt-2;
