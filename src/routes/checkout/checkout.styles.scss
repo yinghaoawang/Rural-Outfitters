@@ -1,10 +1,18 @@
 .checkout-container {
   @apply flex w-[1024px] mx-auto;
+
+  @media (max-width: 1024px) {
+    @apply flex-col w-auto;
+  }
   
   .checkout-items-container {
     @apply w-[55%] min-h-[90vh]
     mx-auto pr-2 my-[30px]
     flex flex-col items-center;
+
+    @media (max-width: 1024px) {
+      @apply w-full px-6;
+    }
   
     .checkout-header {
       @apply

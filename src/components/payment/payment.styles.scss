@@ -3,6 +3,11 @@
     p-5 my-5 pl-10
     border-l border-l-neutral-300;
 
+    @media (max-width: 1024px) {
+        @apply flex flex-col justify-center items-center
+        max-w-none w-full
+        border-t border-t-neutral-300;
+    }
 
     .payment-header {
         @apply font-bold text-lg mb-3;
