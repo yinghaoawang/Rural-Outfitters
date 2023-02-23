@@ -1,32 +1,34 @@
 .checkout-container {
-    width: 55%;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 30px auto;
+  @apply flex mx-auto w-[1024px];
+  
+  .checkout-items-container {
+    @apply w-[55%] min-h-[90vh]
+    mx-auto pr-2 my-[30px]
+    flex flex-col items-center;
   
     .checkout-header {
-      width: 100%;
-      padding: 10px 0;
-      display: flex;
-      justify-content: space-between;
-      @apply text-lg font-bold border-b border-b-neutral-400;
-  
+      @apply
+      text-lg font-bold
+      border-b border-b-neutral-400
+      w-full py-3
+      flex justify-between;
+
       .header-block {
-        text-transform: capitalize;
-        width: 23%;
+        @apply w-[18%] capitalize;
+
+        &:first-child {
+          width: 80px
+        }
   
         &:last-child {
-          width: 8%;
+          width: 12%;
         }
       }
     }
   
     .total {
-      margin-top: 30px;
-      margin-left: auto;
-      @apply text-xl font-bold;
+      @apply mt-7 ml-auto text-xl font-bold;
     }
   }
   
+}

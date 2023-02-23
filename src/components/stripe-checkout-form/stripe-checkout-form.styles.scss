@@ -1,0 +1,17 @@
+#payment-form {
+    #payment-message {
+        @apply mb-2;
+    }
+
+    button {
+        @apply mt-5 mb-3;
+
+        #button-text {
+            @apply flex justify-center align-middle;
+        }
+
+        svg {
+            @apply text-center h-2;
+        }
+    }
+}

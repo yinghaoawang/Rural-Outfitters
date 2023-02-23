@@ -16,7 +16,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares = process.env.NODE_ENV === 'development' ? [loggerMiddleware] : [];
+const middlewares = process.env.NODE_ENV === 'development' ? [/* loggerMiddleware */] : [];
 
 const composeEnhancer = (process.env.NODE_ENV === 'development' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));

@@ -11,6 +11,7 @@ import { store, persistor } from './store/store';
 import { TailSpin } from 'react-loading-icons';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Provider store={ store }>

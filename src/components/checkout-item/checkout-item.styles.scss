@@ -1,10 +1,11 @@
 .checkout-item-container {
   @apply w-full min-h-[100px]
   border-b border-b-neutral-300
-  flex py-4 text-lg items-center;
+  flex items-center justify-between
+  py-4 text-lg;
 
   .image-container {
-    @apply w-[23%] h-[180px] pr-4;
+    @apply w-[80px] h-auto pr-4;
 
     img {
       @apply w-full h-full bg-cover;
@@ -12,8 +13,13 @@
   }
   .name,
   .quantity,
+  .remove,
   .price {
-    width: 23%;
+    width: 18%;
+  }
+
+  .remove {
+    @apply w-[12%] cursor-pointer;
   }
 
   .quantity {
