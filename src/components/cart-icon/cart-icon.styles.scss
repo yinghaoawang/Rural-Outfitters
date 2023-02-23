@@ -1,0 +1,12 @@
+.cart-icon-container {
+    .cart-count {
+        @apply w-[16px] h-[16px] bg-red-500 rounded-full m-auto
+        absolute bottom-[32px] right-[34px];
+
+        .text {
+            @apply flex justify-center items-center align-middle h-full 
+            font-bold text-[8px] text-neutral-100
+            mt-[1px];
+        }
+    }
+}

@@ -12,6 +12,10 @@
         width: 200px;
     }
     
+    @media (min-width: 1024px) {
+        width: 280px;
+    }
+    
     h4 {
         @apply mt-2;
     }

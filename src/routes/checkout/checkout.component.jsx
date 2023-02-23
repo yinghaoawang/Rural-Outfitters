@@ -15,7 +15,7 @@ const Checkout = () => {
                     <div className='header-block'>Product</div>
                     <div className='header-block'>Name</div>
                     <div className='header-block'>Quantity</div>
-                    <div className='header-block'>Price</div>
+                    <div className='header-block'>Subtotal</div>
                     <div className='header-block'>Remove</div> 
 
                 </div>

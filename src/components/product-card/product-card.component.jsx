@@ -10,7 +10,7 @@ const ProductCard = ({ product, ...props }) => {
     const { name, imageUrl, price } = product;
     const addProductToCart = () => {
         dispatch(addItemToCart(cartItems, product));
-        dispatch(setIsCartOpen(true));
+        // dispatch(setIsCartOpen(true));
     }
     return (
         <div onClick={ addProductToCart } className='product-card-container ignore-outside-click' { ...props }>

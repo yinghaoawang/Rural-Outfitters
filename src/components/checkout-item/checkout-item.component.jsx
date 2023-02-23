@@ -21,7 +21,7 @@ const CheckoutItem = ({ cartItem }) => {
                 <div className='value'>{ quantity }</div>
                 <ChevronRight className='arrow' onClick={ () => dispatch(addItemToCart(cartItems, cartItem)) } />
             </div>
-            <div className='price'>${ price }</div>
+            <div className='price'>${ price * quantity }</div>
             <div className='remove' onClick={ () => dispatch(clearItemFromCart(cartItems, cartItem)) }>&#10005;</div>
         </div>
     );
