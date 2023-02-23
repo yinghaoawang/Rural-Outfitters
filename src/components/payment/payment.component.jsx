@@ -17,7 +17,7 @@ const Payment = () => {
 
   useEffect(() => {
     if (cartTotal <= 0) return;
-    console.log(cartTotal);
+
     const createPaymentIntent = async () => {
       const data = await fetch('/.netlify/functions/create-payment-intent', {
         method: 'POST',

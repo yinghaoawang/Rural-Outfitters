@@ -83,19 +83,17 @@ export default function StripeCheckoutForm({ returnUrl }) {
   const paymentElementOptions = {
     layout: {
       type: 'tabs',
-      defaultCollapsed: false
     }
   }
 
   return (
     <form id="payment-form" onSubmit={ submitHandler }>
       <PaymentElement onReady={ paymentElementReadyHandler } id="payment-element" options={ paymentElementOptions } />
-      { isFormReady && <Button buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
-          <span id="button-text">
-            {isLoading ? <Puff /> : "Pay now"}
-          </span>
-        </Button>
-      }
+      <Button className={ isFormReady ? 'ready' : 'unready' } buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
+        <span id="button-text">
+          {isLoading ? <Puff /> : "Pay now"}
+        </span>
+      </Button>
       
       { message && <div id="payment-message">{ message }</div> }
     </form>

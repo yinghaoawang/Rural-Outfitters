@@ -3,8 +3,22 @@
         @apply mb-2;
     }
 
+    #payment-element {
+        height: 359px;
+    }
+
     button {
         @apply mt-5 mb-3;
+        
+        &.unready {
+            opacity: 0;
+        }
+
+        &.ready {
+            transition: opacity 1250ms ease-out;
+            transition-delay: 500ms;
+            opacity: 1;
+        }
 
         #button-text {
             @apply flex justify-center align-middle;
