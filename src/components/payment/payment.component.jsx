@@ -17,13 +17,13 @@ const Payment = () => {
 
   useEffect(() => {
     if (cartTotal <= 0) return;
+    console.log(cartTotal);
     const createPaymentIntent = async () => {
       const data = await fetch('/.netlify/functions/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: cartTotal * 100 }),
       }).then(res => res.json());
-
       dispatch(setClientSecret(data.clientSecret));
     }
     
@@ -39,7 +39,7 @@ const Payment = () => {
       <div className='payment-header'>Payment</div>
       <div className='checkout-element-container'>
         { clientSecret && (
-            <Elements stripe={ stripePromise } options={ options }>
+            <Elements stripe={ stripePromise } options={ options } key={ clientSecret }>
                 <StripeCheckoutForm clientSecret={ clientSecret } returnUrl={ `${baseUrl}checkout/success` } />
             </Elements>
         )}

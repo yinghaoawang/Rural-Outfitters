@@ -7,21 +7,20 @@ import {
 } from "@stripe/react-stripe-js";
 import Button from '../button/button.component';
 import { Puff } from 'react-loading-icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectClientSecret } from '../../store/stripe/stripe.selector';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { emptyCart } from '../../store/cart/cart.action';
 
 export default function StripeCheckoutForm({ returnUrl }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const clientSecret = useSelector(selectClientSecret);
 
   const stripe = useStripe();
   const elements = useElements();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFormReady, setIsFormReady] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -77,19 +76,28 @@ export default function StripeCheckoutForm({ returnUrl }) {
     }
   };
 
+  const paymentElementReadyHandler = (event) => {
+    setIsFormReady(true);
+  }
+
   const paymentElementOptions = {
-    layout: "tabs"
+    layout: {
+      type: 'tabs',
+      defaultCollapsed: false
+    }
   }
 
   return (
     <form id="payment-form" onSubmit={ submitHandler }>
-      <PaymentElement id="payment-element" options={ paymentElementOptions } />
-      <Button buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
-        <span id="button-text">
-          {isLoading ? <Puff /> : "Pay now"}
-        </span>
-      </Button>
-      {message && <div id="payment-message">{ message }</div>}
+      <PaymentElement onReady={ paymentElementReadyHandler } id="payment-element" options={ paymentElementOptions } />
+      { isFormReady && <Button buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
+          <span id="button-text">
+            {isLoading ? <Puff /> : "Pay now"}
+          </span>
+        </Button>
+      }
+      
+      { message && <div id="payment-message">{ message }</div> }
     </form>
   );
 }

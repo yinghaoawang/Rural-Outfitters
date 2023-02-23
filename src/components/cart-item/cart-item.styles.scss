@@ -1,6 +1,10 @@
 .cart-item-container {
   @apply w-full h-16 mb-4 flex;
 
+  @media (min-width: 1024px) {
+    @apply h-20;
+  }
+
   img {
     width: 30%;
   }
