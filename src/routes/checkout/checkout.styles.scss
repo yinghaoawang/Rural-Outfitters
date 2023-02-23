@@ -11,7 +11,7 @@
     flex flex-col items-center;
 
     @media (max-width: 1024px) {
-      @apply w-full px-6;
+      @apply w-full px-6 min-h-0 mb-0;
     }
   
     .checkout-header {
@@ -23,6 +23,10 @@
 
       .header-block {
         @apply w-[18%] capitalize;
+
+        @media (max-width: 500px) {
+          @apply text-base;
+        }
 
         &:first-child {
           @apply w-20;
