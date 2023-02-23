@@ -4,12 +4,12 @@
     }
 
     #payment-element {
-        height: 359px;
+        height: 423px;
     }
 
     button {
         @apply mt-5 mb-3;
-        
+
         &.unready {
             opacity: 0;
         }

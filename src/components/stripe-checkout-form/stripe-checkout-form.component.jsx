@@ -82,7 +82,7 @@ export default function StripeCheckoutForm({ returnUrl }) {
 
   const paymentElementOptions = {
     layout: {
-      type: 'tabs',
+      type: 'accordion',
     }
   }
 
