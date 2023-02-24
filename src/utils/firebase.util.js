@@ -27,12 +27,11 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 export const signInAuthUserWithEmailAndPassword = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 export const db = getFirestore();
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
-    const userDocRef = doc(db, 'users', userAuth.uid);
+export const createUserDocumentFromAuth = async ({ uid, displayName, email, ...additionalInformation }) => {
+    const userDocRef = doc(db, 'users', uid);
     const userSnapshot = await getDoc(userDocRef);
 
     if (!userSnapshot.exists()) {
-        const { displayName, email } = userAuth;
         const createdAt = new Date();
 
         try {
@@ -59,3 +58,28 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 export const signOutAuthUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+const createDocument = async (id, collectionName, { ...fields }) => {
+    const docRef = doc(db, collectionName, id);
+    const snapshot = await getDoc(docRef);
+
+    if (!snapshot.exists()) {
+        const createdAt = new Date();
+
+        const orderObject = {
+            id, createdAt, ...fields
+        };
+
+        try {
+            await setDoc(docRef, orderObject);
+        } catch (error) {
+            console.log('error creating item', error.message);
+        }
+    }
+
+    return docRef;
+}
+
+export const createOrderDocument = async (id, { fields }) => {
+    return createDocument(id, 'orders', fields);
+}

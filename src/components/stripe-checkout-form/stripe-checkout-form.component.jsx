@@ -7,13 +7,18 @@ import {
 } from "@stripe/react-stripe-js";
 import Button from '../button/button.component';
 import { Puff } from 'react-loading-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { emptyCart } from '../../store/cart/cart.action';
+import { createOrderDocument } from '../../utils/firebase.util';
+import { selectCartItems } from '../../store/cart/cart.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 export default function StripeCheckoutForm({ returnUrl }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const currentUser = useSelector(selectCurrentUser);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -57,6 +62,11 @@ export default function StripeCheckoutForm({ returnUrl }) {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
+          createOrderDocument(
+            { id: paymentIntent.id, userId: currentUser.id || null,
+              amount: paymentIntent.amount, paymentIntent, items: cartItems 
+            }
+          );
           dispatch(emptyCart());
           navigate('/checkout/success');
           break;
