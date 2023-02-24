@@ -2,7 +2,7 @@ import './navigation.styles.scss';
 import Logo from '../../assets/logo.svg';
 import { Outlet, Link } from "react-router-dom";
 
-import {  useEffect } from 'react';
+import {  useEffect, useState } from 'react';
 import { signOutAuthUser } from '../../utils/firebase.util';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,9 +10,11 @@ import { setIsCartOpen } from '../../store/cart/cart.action';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
+import AccountDropdown from '../../components/account-dropdown/account-dropdown.component';
 
 const Navigation = () => {
     const dispatch = useDispatch();
+    const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
     const isCartOpen = useSelector(selectIsCartOpen);
     const currentUser = useSelector(selectCurrentUser);
     const signOutHandler = async () => {
@@ -21,20 +23,9 @@ const Navigation = () => {
     const cartClickHandler = () => {
         dispatch(setIsCartOpen(!isCartOpen));
     }
-    const outsideClickHandler = (event) => {
-        const { target } = event;
-        const ignoreClickElements = document.getElementsByClassName('ignore-outside-click');
-        for (let ignoreClickElement of ignoreClickElements) {
-            if (ignoreClickElement.contains(target)) return;
-        }
-        
-        dispatch(setIsCartOpen(false));
+    const accountDropdownClickHandler = () => {
+        setIsAccountDropdownOpen(!isAccountDropdownOpen);
     }
-
-    useEffect(() => {
-        document.addEventListener('mousedown', outsideClickHandler);
-        return () => document.removeEventListener('mousedown', outsideClickHandler);
-    }, []);
 
     return (
         <>
@@ -47,11 +38,22 @@ const Navigation = () => {
                 <div className='nav-links-container'>
                     <Link className='nav-link' to='/shop'>Shop</Link>
                     { currentUser 
-                        ? <Link className='nav-link' onClick={ signOutHandler } to='#'>Logout</Link>
+                        ? (
+                            <>
+                                <Link className='nav-link account-dropdown-relative' onClick={ accountDropdownClickHandler } to='#'>Account</Link>
+                                <AccountDropdown
+                                    className={`${ isAccountDropdownOpen ? 'open' : '' }`}
+                                    setIsDropdownOpen={ setIsAccountDropdownOpen }
+                                >
+                                    <Link onClick={ () => setIsAccountDropdownOpen(false) } className='dropdown-link' to='/'>My Orders</Link>
+                                    <Link onClick={ (e) => { setIsAccountDropdownOpen(false); signOutHandler(e); } } className='dropdown-link' to='#'>Logout</Link>
+                                </AccountDropdown>
+                            </>
+                        )
                         : <Link className='nav-link' to='/login'>Login</Link>
                     }
-                    <Link className='nav-link ignore-outside-click' onClick={ cartClickHandler } to='#'><CartIcon size={ 22 } /></Link>
-                    <CartDropdown className={ `${ isCartOpen ? 'open' : '' } ignore-outside-click` } />
+                    <Link className='nav-link cart-dropdown-relative' onClick={ cartClickHandler } to='#'><CartIcon size={ 22 } /></Link>
+                    <CartDropdown className={ `${ isCartOpen ? 'open' : '' }` } />
                 </div>
             </div>
             <Outlet  />

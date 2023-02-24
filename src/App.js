@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from "./routes/home/home.component";
 import Navigation from './routes/navigation/navigation.component';
 import Login from './routes/authentication/login.component';
@@ -9,13 +9,20 @@ import PaymentSuccess from './routes/payment-success/payment-success.component';
 import { createUserDocumentFromAuth, db, onAuthStateChangedListener } from './utils/firebase.util';
 import { useEffect } from 'react';
 import { setCurrentUser } from './store/user/user.action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { setProducts } from './store/products/products.action';
 import { setCategories } from './store/categories/categories.action';
+import { selectCurrentUser } from './store/user/user.selector';
+import { setIsCartOpen } from './store/cart/cart.action';
 
 function App() {
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    dispatch(setIsCartOpen(false));
+  }, [])
 
   useEffect(() => {
     const categoryQuery = query(collection(db, 'categories'), orderBy('id'));
@@ -64,7 +71,7 @@ function App() {
     <Routes>
       <Route path='/' element={ <Navigation /> }>
         <Route index element={ <Home /> }></Route>
-        <Route path='login' element={ <Login /> }></Route>
+        <Route path='login' element={ currentUser ? <Navigate to='/shop' /> : <Login /> }></Route>
         <Route path='signup' element={ <SignUp /> }></Route>
         <Route path='shop' element={ <Shop /> }></Route>
         <Route path='checkout' element={ <Checkout /> }></Route>

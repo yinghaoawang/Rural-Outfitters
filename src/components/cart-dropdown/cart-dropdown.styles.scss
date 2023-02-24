@@ -1,18 +1,4 @@
 .cart-dropdown-container {
-  @apply absolute w-[260px] h-[300px]
-  flex flex-col p-5
-  border border-neutral-300
-  top-[60px] right-[20px]
-  z-[5] bg-white 
-
-  opacity-0 pointer-events-none
-  transition-opacity duration-[500ms] ease-out;
-
-
-  &.open {
-    @apply opacity-100 pointer-events-auto
-  }
-
   @media (min-width: 700px) {
     width: 280px;
     height: 320px;

@@ -11,7 +11,7 @@ const loggerMiddleware = (store) => (next) => (action) => {
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['user'],
+    // blacklist: ['user'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -6,8 +6,10 @@ import CartItem from '../cart-item/cart-item.component';
 import { setIsCartOpen } from '../../store/cart/cart.action';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCartItems } from '../../store/cart/cart.selector';
+import Dropdown from '../dropdown/dropdown.component';
+import { useEffect } from 'react';
 
-const CartDropdown = ({className, ...props }) => {
+const CartDropdown = ({ className, ...props }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cartItems = useSelector(selectCartItems);
@@ -17,8 +19,21 @@ const CartDropdown = ({className, ...props }) => {
         dispatch(setIsCartOpen(false));
     }
 
+    const cartDropdownOutsideClickHandler = (event) => {
+        const { target } = event;
+        if (target.closest('.cart-dropdown-relative')) return ;
+
+        dispatch(setIsCartOpen(false));
+        event.stopPropagation();
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', cartDropdownOutsideClickHandler);
+        return () => document.removeEventListener('mousedown', cartDropdownOutsideClickHandler);
+    }, []);
+
     return (
-        <div { ...props } className={`cart-dropdown-container ${className}`}>
+        <Dropdown { ...props } className={`cart-dropdown-relative cart-dropdown-container ${ className }`}>
             { cartItems.length === 0 ?
                 <div className='empty-message'>
                     <EmptyCartIcon />
@@ -32,7 +47,7 @@ const CartDropdown = ({className, ...props }) => {
                 </div>
             }
             <Button onClick={ checkoutHandler } buttonType='inverted'>Checkout</Button>
-        </div>
+        </Dropdown>
     )
 }
 

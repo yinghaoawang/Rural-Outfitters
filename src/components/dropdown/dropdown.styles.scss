@@ -1,0 +1,13 @@
+.dropdown-container {
+    @apply absolute 
+    flex flex-col p-5
+    border border-neutral-300
+    z-[5] bg-white
+    
+    opacity-0 pointer-events-none
+    transition-opacity duration-[500ms] ease-out;
+
+    &.open {
+        @apply opacity-100 pointer-events-auto
+    }
+}
