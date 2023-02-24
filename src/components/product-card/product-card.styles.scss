@@ -6,6 +6,10 @@
     img {
         @apply w-full h-[95%] object-cover mb-1;
     }
+
+    .animation-image {
+      position: absolute;
+    }
   
     button {
         @apply w-[80%] opacity-70 absolute top-[200px] hidden;
