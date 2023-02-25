@@ -45,7 +45,7 @@ const Navigation = () => {
                                     className={`${ isAccountDropdownOpen ? 'open' : '' }`}
                                     setIsDropdownOpen={ setIsAccountDropdownOpen }
                                 >
-                                    <Link onClick={ () => setIsAccountDropdownOpen(false) } className='dropdown-link' to='/'>My Orders</Link>
+                                    <Link onClick={ () => setIsAccountDropdownOpen(false) } className='dropdown-link' to='/account/orders'>My Orders</Link>
                                     <Link onClick={ (e) => { setIsAccountDropdownOpen(false); signOutHandler(e); } } className='dropdown-link' to='#'>Logout</Link>
                                 </AccountDropdown>
                             </>

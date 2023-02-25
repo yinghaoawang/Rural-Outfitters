@@ -36,8 +36,7 @@ export const createUserDocumentFromAuth = async ({ uid, displayName, email, ...a
 
         try {
             await setDoc(userDocRef, {
-                displayName, email, createdAt, ...additionalInformation
-            });
+                displayName, email, createdAt            });
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -59,7 +58,7 @@ export const signOutAuthUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
-const createDocument = async (id, collectionName, { ...fields }) => {
+const createDocument = async (id, collectionName, fields) => {
     const docRef = doc(db, collectionName, id);
     const snapshot = await getDoc(docRef);
 
@@ -80,6 +79,6 @@ const createDocument = async (id, collectionName, { ...fields }) => {
     return docRef;
 }
 
-export const createOrderDocument = async (id, { fields }) => {
+export const createOrderDocument = async ({ id, ...fields }) => {
     return createDocument(id, 'orders', fields);
 }

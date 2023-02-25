@@ -15,6 +15,7 @@ import { setProducts } from './store/products/products.action';
 import { setCategories } from './store/categories/categories.action';
 import { selectCurrentUser } from './store/user/user.selector';
 import { setIsCartOpen } from './store/cart/cart.action';
+import UserOrders from './routes/account/user-orders/user-orders.component';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,14 +27,14 @@ function App() {
 
   useEffect(() => {
     const categoryQuery = query(collection(db, 'categories'), orderBy('id'));
-      getDocs(categoryQuery).then(querySnapshot => {
-          const categories = [];
-          querySnapshot.forEach(doc => {
-              const category = doc.data();
-              categories.push(category);
-          });
-          dispatch(setCategories(categories));
-      });
+    getDocs(categoryQuery).then(querySnapshot => {
+        const categories = [];
+        querySnapshot.forEach(doc => {
+            const category = doc.data();
+            categories.push(category);
+        });
+        dispatch(setCategories(categories));
+    });
   }, []);
 
   useEffect(() => {
@@ -72,10 +73,11 @@ function App() {
       <Route path='/' element={ <Navigation /> }>
         <Route index element={ <Home /> }></Route>
         <Route path='login' element={ currentUser ? <Navigate to='/shop' /> : <Login /> }></Route>
-        <Route path='signup' element={ <SignUp /> }></Route>
+        <Route path='signup' element={ !currentUser ? <SignUp /> : <Home /> }></Route>
         <Route path='shop' element={ <Shop /> }></Route>
         <Route path='checkout' element={ <Checkout /> }></Route>
         <Route path='checkout/success' element={ <PaymentSuccess /> }></Route>
+        <Route path='account/orders' element={ currentUser ? <UserOrders /> : <Login /> }></Route>
       </Route>
     </Routes>
   );
