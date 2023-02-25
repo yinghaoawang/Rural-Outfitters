@@ -3,23 +3,33 @@
         @apply mb-2;
     }
 
-    #payment-element {
-    }
-
-    button {
-        @apply mt-5 mb-3
-        opacity-0 pointer-events-none;
+    .delayed-container {
+        @apply opacity-0 pointer-events-none;
 
         &.ready {
             @apply opacity-100 pointer-events-auto transition-opacity delay-1000 duration-[1250ms] ease-out;
         }
 
-        #button-text {
-            @apply flex justify-center align-middle;
+        button {
+            @apply mt-5 mb-3;
+    
+            #button-text {
+                @apply flex justify-center align-middle;
+            }
+    
+            svg {
+                @apply text-center h-8 pt-1;
+            }
         }
 
-        svg {
-            @apply text-center h-8 pt-1;
+        .free-card-info {
+            @apply text-xs text-blue-600 cursor-pointer;
+            
+            .text {
+                @apply text-neutral-600 cursor-auto mt-1 ;
+            }
         }
     }
+
+    
 }

@@ -105,11 +105,33 @@ export default function StripeCheckoutForm({ returnUrl }) {
   return (
     <form id="payment-form" onSubmit={ submitHandler }>
       <PaymentElement onReady={ paymentElementReadyHandler } id="payment-element" options={ paymentElementOptions } />
-      <Button className={ isFormReady ? 'ready' : 'unready' } buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
-        <span id="button-text">
-          {isLoading ? <Puff /> : "Pay now"}
-        </span>
-      </Button>
+      <div className={`delayed-container ${ isFormReady ? 'ready' : 'unready' }`}>
+        <Button buttonType='checkout' disabled={ isLoading || !stripe || !elements } id="submit">
+          <span id="button-text">
+            {isLoading ? <Puff /> : "Pay now"}
+          </span>
+        </Button>
+        <div className='free-card-info'>
+          <details>
+            <summary>Free test card here</summary>
+            <div className='text'>
+              <div>Card: 4242 4242 4242 4242</div>
+              <div className='flex gap-x-12'>
+                <div>
+                  Exp: 4/24
+                </div>
+                <div>
+                  CVC: 424
+                </div>
+              </div>
+              
+              <div>United States</div>
+              <div>42424</div>
+            </div>
+          </details>
+        </div>
+      </div>
+      
       
       { message && <div id="payment-message">{ message }</div> }
     </form>
