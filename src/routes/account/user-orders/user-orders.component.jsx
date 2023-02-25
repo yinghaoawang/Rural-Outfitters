@@ -49,7 +49,7 @@ const UserOrders = () => {
                     <div>
                         <Moment format='L kk:mm' date={new Date(order.createdAt.seconds * 1000 )}/>
                     </div>
-                    <div>${ order.amount }</div>
+                    <div>${ order.amount.toString().slice(0, -2) }.{ (order.amount.toString().slice(-2)) }</div>
 
                     <div className='items'>
                         { order.items.map((item, index) => (

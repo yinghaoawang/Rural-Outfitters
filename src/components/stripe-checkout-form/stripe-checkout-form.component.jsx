@@ -26,7 +26,6 @@ export default function StripeCheckoutForm({ returnUrl }) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFormReady, setIsFormReady] = useState(false);
-  console.log(currentUser);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -58,16 +57,12 @@ export default function StripeCheckoutForm({ returnUrl }) {
       }
       return;
     }
-    console.log(paymentIntent);
 
     if (paymentIntent) {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
 
-          console.log({ id: paymentIntent.id, userId: currentUser.uid || null,
-            amount: paymentIntent.amount, paymentIntent, items: cartItems 
-          });
           createOrderDocument(
             { id: paymentIntent.id, userId: currentUser.uid || null,
               amount: paymentIntent.amount, paymentIntent, items: cartItems 
