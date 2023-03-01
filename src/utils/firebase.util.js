@@ -5,6 +5,9 @@ import {
     GoogleAuthProvider, createUserWithEmailAndPassword,  } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
+// import * as dotenv from 'dotenv';
+// dotenv.config();
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FB_API_KEY,
     authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
@@ -36,7 +39,7 @@ export const createUserDocumentFromAuth = async ({ uid, displayName, email, ...a
 
         try {
             await setDoc(userDocRef, {
-                displayName, email, createdAt            });
+                displayName, email, createdAt });
         } catch (error) {
             console.log('error creating user', error.message);
         }
@@ -59,6 +62,8 @@ export const signOutAuthUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
 const createDocument = async (id, collectionName, fields) => {
+
+    
     const docRef = doc(db, collectionName, id);
     const snapshot = await getDoc(docRef);
 

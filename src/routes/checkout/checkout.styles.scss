@@ -35,6 +35,12 @@
         &:last-child {
           width: 12%;
         }
+
+        &.name {
+          @media (min-width: 600px) {
+            width: 200px !important;
+          }
+        }
       }
     }
   

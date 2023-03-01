@@ -18,6 +18,12 @@
     width: 18%;
   }
 
+  .name {
+    @media (min-width: 600px) {
+      width: 200px !important;
+    }
+  }
+
   .remove {
     @apply w-[12%] cursor-pointer;
   }
