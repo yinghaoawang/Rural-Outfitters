@@ -63,11 +63,14 @@ export default function StripeCheckoutForm({ returnUrl }) {
         case "succeeded":
           setMessage("Payment succeeded!");
 
-          createOrderDocument(
-            { id: paymentIntent.id, userId: currentUser.uid || null,
-              amount: paymentIntent.amount, paymentIntent, items: cartItems 
-            }
-          );
+          if (currentUser) {
+            createOrderDocument(
+              { id: paymentIntent.id, userId: currentUser.uid || null,
+                amount: paymentIntent.amount, paymentIntent, items: cartItems 
+              }
+            );
+          }
+          
           dispatch(emptyCart());
           navigate('/checkout/success');
           break;
